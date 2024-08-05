@@ -2,7 +2,7 @@ const db = require("../database/connection");
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 require('dotenv').config();
-const jwtSecret = process.env.JWT_SECRET;
+const jwtSecret = process.env.JWT_SECRET || 'abc';  
 var jwt = require('jsonwebtoken');
 // const { forgotPassword, resetPassword } = require("../controllers/user.controller");
 const mailService = require("../middlewares/mailService.js");
@@ -11,6 +11,11 @@ const register = async (user) => {
     // Hash the password
     try {
         if(user.username === '' || user.password === '' || user.email === '') return 'No Empty';
+        const query0 = 'SELECT * FROM users WHERE username = ?';
+        const results = await db.query(query0, [user.username])
+        if (results[0].length != 0) {
+            return 'Username already exists';
+        }
         const hashedPassword = await bcrypt.hash(user.password, 10);
         // Insert the user into the database
         user.password = hashedPassword;
@@ -44,7 +49,7 @@ const login = async (user) => {
         // res.status(200).send(token);
         return token;
     } catch (error) {
-        console.error(err);
+        console.log(error);
     }
 };
   

@@ -1,4 +1,4 @@
-const db = require("../database/connection.js");
+// const db = require("../database/connection.js");
 const mailService = require("../middlewares/mailService.js");
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
@@ -25,6 +25,7 @@ const login = async (req, res) => {
     }
     catch (err) {
         res.status(500).send(err);
+        console.log(err);
     }
 }
 
