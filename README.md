@@ -1,4 +1,4 @@
-- This project is a system for managing users, updating files, and performing CRUD operations on polls.
+- This project is a system for managing users, log in, register, updating files, and performing CRUD operations on polls.
 
 <h2>
   Tech Stack
